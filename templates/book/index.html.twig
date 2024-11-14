@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Каталог книг{% endblock %}
+
+{% block body %}
+    <div class="container my-4">
+        <h1 class="mb-4">Каталог книг</h1>
+
+        <div class="row">
+            {% for book in books %}
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <a href="{{ path('app_book_show', {'id': book.id}) }}" class="text-decoration-none text-dark">
+                        <div class="card h-100">
+                            <img style="height: 200px; object-fit: cover;" src="{{ book.coverImage ? asset('uploads/covers/' ~ book.coverImage) : 'https://placehold.co/300x200' }}"
+                                 class="card-img-top"
+                                 alt="{{ book.title }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ book.title }}</h5>
+                                <p class="card-text"><strong>Автор:</strong> {{ book.author }}</p>
+                                <p class="card-text">
+                                    {{ book.description|split(' ')|slice(0, 20)|join(' ') }}{% if book.description|split(' ')|length > 20 %}...{% endif %}
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">{{ book.genre ? book.genre : 'Дата неизвестна' }}</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% else %}
+                <p>Нет доступных записей</p>
+            {% endfor %}
+        </div>
+
+        <a href="{{ path('app_book_new') }}" class="btn btn-primary mt-4">Добавить новую книгу</a>
+    </div>
+{% endblock %}

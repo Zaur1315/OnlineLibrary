@@ -15,7 +15,7 @@ class Book
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $ÐµÑtitle = null;
+    private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $author = null;
@@ -40,14 +40,14 @@ class Book
         return $this->id;
     }
 
-    public function getÐµÑtitle(): ?string
+    public function getTitle(): ?string
     {
-        return $this->ÐµÑtitle;
+        return $this->title;
     }
 
-    public function setÐµÑtitle(string $ÐµÑtitle): static
+    public function setTitle(string $title): static
     {
-        $this->ÐµÑtitle = $ÐµÑtitle;
+        $this->title = $title;
 
         return $this;
     }
