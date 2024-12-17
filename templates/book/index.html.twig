@@ -3,35 +3,84 @@
 {% block title %}Каталог книг{% endblock %}
 
 {% block body %}
-    <div class="container my-4">
+    <div class="container-fluid my-4">
         <h1 class="mb-4">Каталог книг</h1>
 
+
         <div class="row">
-            {% for book in books %}
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                    <a href="{{ path('app_book_show', {'id': book.id}) }}" class="text-decoration-none text-dark">
-                        <div class="card h-100">
-                            <img style="height: 200px; object-fit: cover;" src="{{ book.coverImage ? asset('uploads/covers/' ~ book.coverImage) : 'https://placehold.co/300x200' }}"
-                                 class="card-img-top"
-                                 alt="{{ book.title }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ book.title }}</h5>
-                                <p class="card-text"><strong>Автор:</strong> {{ book.author }}</p>
-                                <p class="card-text">
-                                    {{ book.description|split(' ')|slice(0, 20)|join(' ') }}{% if book.description|split(' ')|length > 20 %}...{% endif %}
-                                </p>
+            <div class="col-3">
+                <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+                    <a href="/"
+                       class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <svg class="bi me-2" width="40" height="32">
+                            <use xlink:href="#bootstrap"></use>
+                        </svg>
+                        <span class="fs-4">Фильтры</span>
+                    </a>
+                    <hr>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active" aria-current="page">
+                                <svg class="bi me-2" width="16" height="16">
+                                    <use xlink:href="#home"></use>
+                                </svg>
+                                Home
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <form method="get" class="mb-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="text" name="title" class="form-control" placeholder="Название" value="{{ app.request.query.get('title') }}">
                             </div>
-                            <div class="card-footer">
-                                <small class="text-muted">{{ book.genre ? book.genre : 'Дата неизвестна' }}</small>
+                            <div class="col-md-12">
+                                <input type="text" name="author" class="form-control" placeholder="Автор" value="{{ app.request.query.get('author') }}">
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" name="genre" class="form-control" placeholder="Жанр" value="{{ app.request.query.get('genre') }}">
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">Поиск</button>
+                                <a href="{{ path('app_book_index') }}" class="btn btn-secondary">Сбросить</a>
                             </div>
                         </div>
-                    </a>
+                    </form>
+                    <hr>
                 </div>
-            {% else %}
-                <p>Нет доступных записей</p>
-            {% endfor %}
+            </div>
+            <div class="col-9">
+                <div class="row">
+                    {% for book in books %}
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <a href="{{ path('app_book_show', {'id': book.id}) }}"
+                               class="text-decoration-none text-dark">
+                                <div class="card h-100">
+                                    <img style="height: 200px; object-fit: cover;"
+                                         src="{{ book.coverImage ? asset('uploads/covers/' ~ book.coverImage) : 'https://placehold.co/300x200' }}"
+                                         class="card-img-top"
+                                         alt="{{ book.title }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ book.title }}</h5>
+                                        <p class="card-text"><strong>Автор:</strong> {{ book.author }}</p>
+                                        <p class="card-text">
+                                            {{ book.description|split(' ')|slice(0, 20)|join(' ') }}{% if book.description|split(' ')|length > 20 %}...{% endif %}
+                                        </p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small
+                                            class="text-muted">{{ book.genre ? book.genre : 'Дата неизвестна' }}</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% else %}
+                        <p>Нет доступных записей</p>
+                    {% endfor %}
+                </div>
+                <a href="{{ path('app_book_new') }}" class="btn btn-primary mt-4">Добавить новую книгу</a>
+            </div>
         </div>
-
-        <a href="{{ path('app_book_new') }}" class="btn btn-primary mt-4">Добавить новую книгу</a>
     </div>
 {% endblock %}

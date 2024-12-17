@@ -39,12 +39,32 @@
                 <th>CoverImage</th>
                 <td>{{ book.coverImage }}</td>
             </tr>
+
         </tbody>
     </table>
+
+    {% if book.averageRating %}
+        <p><strong>Средний рейтинг:</strong> {{ book.averageRating }} / 5</p>
+    {% else %}
+        <p>Эта книга еще не имеет рейтинга.</p>
+    {% endif %}
 
     <a href="{{ path('app_book_index') }}">back to list</a>
 
     <a href="{{ path('app_book_edit', {'id': book.id}) }}">edit</a>
 
     {{ include('book/_delete_form.html.twig') }}
+
+    <h2>Отзывы</h2>
+    {% for review in book.reviews %}
+        <div class="border p-3 mb-2">
+            <p><strong>Оценка:</strong> {{ review.rating }} / 5</p>
+            <p><strong>Отзыв:</strong> {{ review.comment }}</p>
+            <small>Автор: {{ review.user.email }} | Дата: {{ review.createdAt|date('d.m.Y H:i') }}</small>
+        </div>
+    {% else %}
+        <p>Пока нет отзывов для этой книги.</p>
+    {% endfor %}
+
+    <a href="{{ path('app_book_add_review', {'id': book.id}) }}" class="btn btn-primary mt-3">Добавить отзыв</a>
 {% endblock %}
