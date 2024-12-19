@@ -17,14 +17,24 @@ class ReviewType extends AbstractType
         $builder
             ->add('rating', IntegerType::class, [
             'label' => 'Оценка (от 1 до 5)',
-            'attr' => ['min' => 1, 'max' => 5],
+            'attr' => [
+                'min' => 1,
+                'max' => 5,
+                'step' => 1,
+                'class' => 'form-control',
+            ],
             ])
             ->add('comment', TextareaType::class, [
                 'label' => 'Ваш отзыв',
+                'attr' => [
+                    'class' => 'form-control',
+                ]
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Оставить отзыв',
-                'attr' => ['class' => 'btn btn-primary'],
+                'attr' => [
+                    'class' => 'btn btn-primary mt-3'
+                ],
             ]);
     }
 

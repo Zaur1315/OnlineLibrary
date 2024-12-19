@@ -10,44 +10,52 @@
         <div class="row">
             <div class="col-3">
                 <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
-                    <a href="/"
-                       class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                        <svg class="bi me-2" width="40" height="32">
-                            <use xlink:href="#bootstrap"></use>
-                        </svg>
-                        <span class="fs-4">Фильтры</span>
-                    </a>
                     <hr>
-                    <ul class="nav nav-pills flex-column mb-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link active" aria-current="page">
-                                <svg class="bi me-2" width="16" height="16">
-                                    <use xlink:href="#home"></use>
-                                </svg>
-                                Home
-                            </a>
-                        </li>
-
-                    </ul>
-
                     <form method="get" class="mb-4">
                         <div class="row">
-                            <div class="col-md-12">
-                                <input type="text" name="title" class="form-control" placeholder="Название" value="{{ app.request.query.get('title') }}">
+                            <div class="col-12">
+                                <h5 class="mt-2">Поиск</h5>
+                                <input type="text" name="search" class="form-control" placeholder="Название или описание"
+                                       value="{{ search }}">
                             </div>
-                            <div class="col-md-12">
-                                <input type="text" name="author" class="form-control" placeholder="Автор" value="{{ app.request.query.get('author') }}">
+                            <div class="col-12">
+                                <h5 class="mt-2">Авторы</h5>
+                                {% for author in authors %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="authors[]" value="{{ author }}"
+                                               id="author-{{ loop.index }}"
+                                               {% if author in selectedAuthors %}checked{% endif %}>
+                                        <label class="form-check-label" for="author-{{ loop.index }}">{{ author }}</label>
+                                    </div>
+                                {% endfor %}
                             </div>
-                            <div class="col-md-12">
-                                <input type="text" name="genre" class="form-control" placeholder="Жанр" value="{{ app.request.query.get('genre') }}">
+                            <div class="col-12">
+                                <h5 class="mt-2">Жанры</h5>
+                                {% for genre in genres %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="genres[]" value="{{ genre }}"
+                                               id="genre-{{ loop.index }}"
+                                               {% if genre in selectedGenres %}checked{% endif %}>
+                                        <label class="form-check-label" for="genre-{{ loop.index }}">{{ genre }}</label>
+                                    </div>
+                                {% endfor %}
                             </div>
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary">Поиск</button>
-                                <a href="{{ path('app_book_index') }}" class="btn btn-secondary">Сбросить</a>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary mt-4 w-100">Применить фильтры</button>
+                                <a href="{{ path('app_book_index') }}" class="btn btn-secondary mt-2 w-100">Сбросить</a>
                             </div>
                         </div>
                     </form>
                     <hr>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item">
+                                <a href="{{ path('app_book_new') }}" class="btn btn-primary w-100" aria-current="page">
+                                    Добавить новую книгу
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
                 </div>
             </div>
             <div class="col-9">
@@ -79,7 +87,6 @@
                         <p>Нет доступных записей</p>
                     {% endfor %}
                 </div>
-                <a href="{{ path('app_book_new') }}" class="btn btn-primary mt-4">Добавить новую книгу</a>
             </div>
         </div>
     </div>

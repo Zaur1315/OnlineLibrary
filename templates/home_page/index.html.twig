@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block body %}
+
+    <div class="bgc" style="background-color: #212529; height: 85vh">
+        <div id="mainSlider" class="carousel slide" data-bs-ride="carousel" style="height: 70vh;">
+            <div class="carousel-inner" style="height: 100%">
+                <div class="carousel-item active" style="height: 100%; position: relative">
+                    <div class="overlay" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0, 0, 0, 0.5);z-index: 1;"></div>
+                    <img style="object-fit: cover; position: relative;z-index: 0;" src="{{ asset('images/slider/2_af7e6b48-5e0a-4824-b3f6-a4badf57f311.webp') }}" class="d-block w-100" alt="Слайд 1">
+                    <div style="position: absolute;z-index: 2;" class="carousel-caption d-none d-md-block">
+                        <h1>Гордость и предубеждение</h1>
+                        <p>Автор этого романа - Джейн Остин старается донести до читателя, что главное в жизни - это любовь, под воздействием которой может измениться любой человек. Как и другие лучшие книги всех времен, это произведение, написанное более 200 лет назад, трогает сердца современных читателей. Именно поэтому оно до сих пор остается очень популярным. Джейн Остин, описывая истории героев книги, показывает, что любовь важнее богатства. Автор открыто пишет, что нужно всегда признаваться в своих чувствах, и никогда нельзя ставить гордыню превыше любви. После прочтения романа вы по-другому взглянете на жизнь и долгое время будете оставаться под воздействием тех эмоций, которыми пронизано это произведение. Именно поэтому его стоит прочесть каждому!</p>
+                        <a href="/book/4" class="btn btn-primary btn-lg">Перейти к Книге</a>
+                    </div>
+                </div>
+                <div class="carousel-item" style="height: 100%; position: relative">
+                    <div class="overlay" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0, 0, 0, 0.5);z-index: 1;"></div>
+                    <img style="object-fit: cover;position: relative;z-index: 0;" src="{{ asset('images/slider/orig.png') }}" class="d-block w-100" alt="Слайд 2">
+                    <div style="position: absolute;z-index: 2;" class="carousel-caption d-none d-md-block">
+                        <h1>Сто лет одиночества</h1>
+                        <p>Произведение покоряет сердца читателей своей непредсказуемостью, в то же время повествование в нем ведется спокойно и размеренно. За эту книгу великий писатель получил Нобелевскую премию, она разошлась по миру огромным тиражом - свыше 30 миллионов экземпляров, а сам роман стал культовым. Как многие популярные книги, эта каждым читателем воспринимается по-своему. В романе повествуется о жизни семи поколений одной семьи, об одиночестве целого рода. И никто не может дать ответ на вопрос – что такое любовь? Мы хотим любви или боимся ее, и потому избегаем?</p>
+                        <a href="/book/5" class="btn btn-primary btn-lg">Перейти к Книге</a>
+                    </div>
+                </div>
+                <div class="carousel-item" style="height: 100%; position: relative">
+                    <div class="overlay" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0, 0, 0, 0.5);z-index: 1;"></div>
+                    <img style="object-fit: cover;position: relative;z-index: 0;" src="{{ asset('images/slider/original-1np7.jpg') }}" class="d-block w-100" alt="Слайд 3">
+                    <div style="position: absolute;z-index: 2;" class="carousel-caption d-none d-md-block">
+                        <h1>Гарри Поттер</h1>
+                        <p>Это произведение Джоан Роулинг - самое читаемое современной молодежью. Первый роман из серии был опубликован в 1997 г. и сразу же пришелся по вкусу подростковой и взрослой аудитории. Джоан Роулинг, которая до этого была никому не известным автором, быстро обрела мировую славу и продолжила радовать читателей новыми произведениями. В серии романов рассказывается о Гарри Поттере - мальчике-сироте, обладающем магическими способностями. Обучаясь в школе Хогвартс на факультете Гриффиндор, он, вместе со своими друзьями, сталкивается с множеством приключений. Огромная армия поклонников следила за развитием событий – книга разошлась тиражом в 400 млн. экземпляров и ее можно назвать одной из самых популярных с начала текущего века. По статистике, каждую минуту один человек берется за прочтение «Гарри Поттера», ведь «Поттериана» - это книги, которые стоит прочитать и взрослым, и детям!</p>
+                        <a href="/book/6" class="btn btn-primary btn-lg">Перейти к Книге</a>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#mainSlider" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Предыдущий</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#mainSlider" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Следующий</span>
+            </button>
+        </div>
+    </div>
+
+{% endblock %}

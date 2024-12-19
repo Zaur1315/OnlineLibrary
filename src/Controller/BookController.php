@@ -22,31 +22,50 @@ class BookController extends AbstractController
     #[Route('/', name: 'app_book_index', methods: ['GET'])]
     public function index(BookRepository $bookRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $title = $request->query->get('title');
-        $author = $request->query->get('author');
-        $genre = $request->query->get('genre');
+        $search = $request->query->get('search', '');
+        $selectedAuthors = $request->query->all('authors');
+        $selectedGenres = $request->query->all('genres');
 
         $queryBuilder = $entityManager->getRepository(Book::class)->createQueryBuilder('b');
 
-        if ($title) {
-            $queryBuilder->andWhere('b.title LIKE :title')
-                ->setParameter('title', '%' . $title . '%');
+        if ($search) {
+            $queryBuilder->andWhere('b.title LIKE :search OR b.description LIKE :search')
+                ->setParameter('search', '%' . $search . '%');
         }
 
-        if ($author) {
-            $queryBuilder->andWhere('b.author LIKE :author')
-                ->setParameter('author', '%' . $author . '%');
+        if (!empty($selectedAuthors)) {
+            $queryBuilder->andWhere('b.author IN (:authors)')
+                ->setParameter('authors', $selectedAuthors);
         }
 
-        if ($genre) {
-            $queryBuilder->andWhere('b.genre LIKE :genre')
-                ->setParameter('genre', '%' . $genre . '%');
+        if (!empty($selectedGenres)) {
+            $queryBuilder->andWhere('b.genre IN (:genres)')
+                ->setParameter('genres', $selectedGenres);
         }
 
         $books = $queryBuilder->getQuery()->getResult();
 
+        $authors = $entityManager->getRepository(Book::class)
+            ->createQueryBuilder('b')
+            ->select('DISTINCT b.author')
+            ->where('b.author IS NOT NULL')
+            ->getQuery()
+            ->getResult();
+
+        $genres = $entityManager->getRepository(Book::class)
+            ->createQueryBuilder('b')
+            ->select('DISTINCT b.genre')
+            ->where('b.genre IS NOT NULL')
+            ->getQuery()
+            ->getResult();
+
         return $this->render('book/index.html.twig', [
             'books' => $books,
+            'authors' => array_column($authors, 'author'),
+            'genres' => array_column($genres, 'genre'),
+            'selectedAuthors' => $selectedAuthors,
+            'selectedGenres' => $selectedGenres,
+            'search' => $search,
         ]);
     }
 
