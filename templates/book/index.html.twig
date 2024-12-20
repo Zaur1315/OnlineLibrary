@@ -3,10 +3,7 @@
 {% block title %}Каталог книг{% endblock %}
 
 {% block body %}
-    <div class="container-fluid my-4">
-        <h1 class="mb-4">Каталог книг</h1>
-
-
+    <div class="container-fluid my-4" style="min-height: 77.5vh">
         <div class="row">
             <div class="col-3">
                 <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
@@ -59,6 +56,8 @@
                 </div>
             </div>
             <div class="col-9">
+                <h1 class="mb-4">Каталог книг</h1>
+
                 <div class="row">
                     {% for book in books %}
                         <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
